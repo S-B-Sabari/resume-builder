@@ -123,7 +123,7 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-between text-xs text-gray-600">
                 <span className="font-semibold text-gray-700">Password:</span>
-                <span className="font-mono bg-white px-2 py-0.5 rounded border border-gray-200 text-gray-900 select-all">admin1234</span>
+                <span className="font-mono bg-white px-2 py-0.5 rounded border border-gray-200 text-gray-900 select-all">admin@1234</span>
               </div>
             </div>
           </div>

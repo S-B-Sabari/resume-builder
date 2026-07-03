@@ -56,7 +56,7 @@ export const loginUser = async (req, res) => {
         const { email, password } = req.body;
 
         // Bypass MongoDB completely for mock admin credentials
-        if (email === 'admin@gmail.com' && password === 'admin1234') {
+        if (email === 'admin@gmail.com' && password === 'admin@1234') {
             const mockUser = {
                 _id: MOCK_ADMIN_ID,
                 name: 'Admin User',
