@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+
+*{
+    font-family: "Public Sans", sans-serif;
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+  input:not([type="checkbox"]){
+    @apply outline-none focus:ring border border-gray-300
+    focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+  }
+  textarea{
+
+    @apply outline-none focus:ring border border-gray-300
+    focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
+  }
+}
+
+/* ================= PRINT STYLES ================= */
+
+@media print {
+
+  /* Hide everything */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only resume section */
+  #resume-print,
+  #resume-print * {
+    visibility: visible;
+  }
+
+  /* Position resume properly */
+  #resume-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+}
+
+/* Optional: Proper A4 size */
+@page {
+  size: A4;
+  margin: 0;
+}

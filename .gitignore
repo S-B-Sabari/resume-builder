@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Production builds
+client/dist/
+client/dist-ssr/
+
+# Environment files containing sensitive credentials
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+client/.env
+
+# Logs and system files
+logs
+*.log
+.DS_Store
+Thumbs.db
