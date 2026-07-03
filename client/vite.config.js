@@ -10,7 +10,12 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            return 'vendor';
+            if (id.includes('lucide-react')) {
+              return 'lucide';
+            }
+            if (id.includes('@hello-pangea/dnd')) {
+              return 'dnd';
+            }
           }
         }
       }
