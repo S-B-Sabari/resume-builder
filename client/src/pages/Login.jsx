@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../app/features/authSlice'
 import toast from 'react-hot-toast'
-import api from '../configs/api' 
+import api from '../configs/api'
 
 const Login = () => {
 
@@ -115,7 +115,7 @@ const Login = () => {
 
         {state === "login" && (
           <div className="mt-6 border-t border-gray-200/85 pt-6">
-            <p className="text-xs text-gray-500 mb-2 font-medium">Want to test the app? Use sample login:</p>
+            <p className="text-xs text-gray-500 mb-2 font-medium">Want to check app? Use sample login:</p>
             <div className="bg-gray-50 border border-gray-100 rounded-xl p-3 text-left">
               <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                 <span className="font-semibold text-gray-700">Email:</span>
