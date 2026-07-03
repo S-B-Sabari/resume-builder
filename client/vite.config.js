@@ -5,12 +5,22 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    chunkSizeWarningLimit: 1600,
+    chunkSizeWarningLimit: 2000,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            return 'vendor';
+            if (id.includes('lucide-react')) {
+              return 'lucide';
+            }
+            if (id.includes('@hello-pangea/dnd')) {
+              return 'dnd';
+            }
+            if (id.includes('react') || id.includes('scheduler')) {
+              if (!id.includes('router') && !id.includes('redux')) {
+                return 'react-core';
+              }
+            }
           }
         }
       }
