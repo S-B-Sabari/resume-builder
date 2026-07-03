@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import imageKit from "../configs/imageKit.js"
 
+const MOCK_ADMIN_ID = "65c2b0c3f5a2b123456789ab"
+
 const generateToken = (userId) => {
     const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7d' })
     return token;
@@ -53,28 +55,20 @@ export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        //check if user exists
-        let user = await User.findOne({ email })
-
-        // Auto-provision or update sample admin credentials on demand
-        if (email === 'admin@gmail.com') {
-            if (!user) {
-                const hashedPassword = await bcrypt.hash('admin123', 10)
-                user = await User.create({
-                    name: 'Admin User',
-                    email: 'admin@gmail.com',
-                    password: hashedPassword
-                })
-            } else if (password === 'admin123') {
-                const isPasswordCorrect = user.comparePassword(password)
-                if (!isPasswordCorrect) {
-                    const hashedPassword = await bcrypt.hash('admin123', 10)
-                    user.password = hashedPassword
-                    await user.save()
-                }
+        // Bypass MongoDB completely for mock admin credentials
+        if (email === 'admin@gmail.com' && password === 'admin1234') {
+            const mockUser = {
+                _id: MOCK_ADMIN_ID,
+                name: 'Admin User',
+                email: 'admin@gmail.com',
+                image: ''
             }
+            const token = generateToken(MOCK_ADMIN_ID)
+            return res.status(200).json({ message: 'Login successful', token, user: mockUser })
         }
 
+        //check if user exists
+        const user = await User.findOne({ email })
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' })
         }
@@ -99,6 +93,16 @@ export const loginUser = async (req, res) => {
 export const getUserById = async (req, res) => {
     try {
         const userId = req.userId;
+
+        if (userId === MOCK_ADMIN_ID) {
+            const mockUser = {
+                _id: MOCK_ADMIN_ID,
+                name: 'Admin User',
+                email: 'admin@gmail.com',
+                image: ''
+            }
+            return res.status(200).json({ user: mockUser })
+        }
 
         // check if user exists
         const user = await User.findById(userId)
@@ -150,6 +154,16 @@ export const updateUser = async (req, res) => {
         const userId = req.userId;
         const { name, email } = req.body;
         const imageFile = req.file;
+
+        if (userId === MOCK_ADMIN_ID) {
+            const mockUser = {
+                _id: MOCK_ADMIN_ID,
+                name: name || 'Admin User',
+                email: email || 'admin@gmail.com',
+                image: ''
+            }
+            return res.status(200).json({ message: 'Profile updated successfully', user: mockUser })
+        }
 
         // check if user exists
         const user = await User.findById(userId);
